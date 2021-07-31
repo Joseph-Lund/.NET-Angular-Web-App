@@ -1,4 +1,4 @@
-class weatherForecast{
+class WeatherForecast{
     date: string;
     temperatureC: number;
     temperatureF: number;
