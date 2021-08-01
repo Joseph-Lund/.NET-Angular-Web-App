@@ -14,11 +14,11 @@ export class FetchDataService {
 
   constructor(http:HttpClient, @Inject('BASE_URL') baseUrl: string) { 
     this.http = http;
-    this.baseUrl = baseUrl;
+    this.baseUrl = baseUrl + 'weatherforecast';
   }
 
   getWeatherForecast(): Observable<WeatherForecast[]>{
-    return this.http.get<WeatherForecast[]>(this.baseUrl + 'weatherforecast');
+    return this.http.get<WeatherForecast[]>(this.baseUrl + '/get');
   }
 
   getProfile(): Observable<ProfileType>{

@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using net_5.Services;
+using net_5.DataContext;
+
+
 
 namespace net_5
 {
@@ -38,6 +43,13 @@ namespace net_5
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddDbContext<AppContext>(options =>  
+                          options.UseSqlServer(  
+                              Configuration.GetConnectionString("DefaultConnection")));  
+
+                              
+            //Register dapper in scope    
+            services.AddScoped<IDapperService, DapperService>();  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using net_5.Services;
 
 namespace net_5.Controllers
 {
@@ -18,23 +20,19 @@ namespace net_5.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IDapperService _dapper;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IDapperService dapper)
         {
             _logger = logger;
+            _dapper = dapper;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+        [HttpGet(nameof(Get))]  
+        public async Task<List<WeatherForecast>> Get()  
+        {  
+            var result = await Task.FromResult(_dapper.GetAll<WeatherForecast>("spGetWeatherForecasts", null));  
+            return result;  
+        }  
     }
 }
