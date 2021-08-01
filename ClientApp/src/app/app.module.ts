@@ -39,7 +39,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       auth: {
         clientId: 'c0bd5b88-1cd1-4ea8-90cd-fa7aa3d19676', // This is your client ID
         authority: 'https://login.microsoftonline.com/d036094f-a21d-4388-b1a6-407ea384620d', // This is your tenant ID
-        redirectUri: 'https://localhost:5001/'// This is your redirect URI
+        redirectUri: 'https://localhost:5001/signin-oidc'// This is your redirect URI
       },
       cache: {
         cacheLocation: 'localStorage',
@@ -48,12 +48,12 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     }), {
       interactionType: InteractionType.Redirect, // MSAL Guard Configuration
       authRequest: {
-        scopes: ['user.read']
+        scopes: ['user.read', 'api://d76c715e-95c1-416c-bb63-4257267fb2cd/user.access']
       },
     }, {
       interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
       protectedResourceMap: new Map([ 
-          ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+          ['https://graph.microsoft.com/v1.0/me', ['user.read', 'api://d76c715e-95c1-416c-bb63-4257267fb2cd/user.access']]
       ])
     })
   ],

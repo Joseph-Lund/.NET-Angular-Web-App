@@ -4,7 +4,8 @@
   
     <div class="toolbar-spacer"></div>
   
-    <a mat-button [routerLink]="['fetch-data']">Fetch Data</a>
+    <a mat-button [routerLink]="['']">Home</a>
+    <a mat-button *ngIf="loginDisplay" [routerLink]="['fetch-data']">Fetch Data</a>
   
 
     <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
