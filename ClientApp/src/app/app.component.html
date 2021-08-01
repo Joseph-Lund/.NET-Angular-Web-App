@@ -1,6 +1,18 @@
 <body>
-  <app-nav-menu></app-nav-menu>
+  <mat-toolbar>
+    <a class="title" href="/">{{ title }}</a>
+  
+    <div class="toolbar-spacer"></div>
+  
+    <a mat-button [routerLink]="['fetch-data']">Fetch Data</a>
+  
+
+    <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
+    <button mat-raised-button *ngIf="loginDisplay" (click)="logout()">Logout</button>
+  
+  </mat-toolbar>
   <div class="container">
-    <router-outlet></router-outlet>
+    <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+    <router-outlet *ngIf="!isIframe"></router-outlet>
   </div>
 </body>

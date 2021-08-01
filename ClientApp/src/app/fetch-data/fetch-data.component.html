@@ -22,3 +22,22 @@
     </tr>
   </tbody>
 </table>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="profile">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ profile.givenName }}</td>
+      <td>{{ profile.surname }}</td>
+      <td>{{ profile.userPrincipalName }}</td>
+      <td>{{ profile.id }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -6,7 +6,7 @@ import { FetchDataService } from './fetch-data.service';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent implements OnInit {
-
+  profile!: ProfileType;
   public forecasts: WeatherForecast[];
   private fetchDataService: FetchDataService;
 
@@ -16,9 +16,27 @@ export class FetchDataComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getProfile();
+    this.getWeatherForecast();
+  }
+
+  getProfile(): void{
+    this.fetchDataService.getProfile().subscribe(
+      (profileType: ProfileType) =>{
+        this.profile = profileType;
+        this.getWeatherForecast();
+      },
+      (error: any)=>{
+        //TODO: add popup to show there was an error
+        console.error("getProfile Error: ", error);
+      }
+      );
+  }
+
+  getWeatherForecast(): void{
     this.fetchDataService.getWeatherForecast().subscribe(
-      (forcastListResults: WeatherForecast[]) =>{
-        this.forecasts = forcastListResults;
+      (weatherForcast: WeatherForecast[]) =>{
+        this.forecasts = weatherForcast;
       },
       (error: any)=>{
         //TODO: add popup to show there was an error
